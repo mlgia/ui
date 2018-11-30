@@ -1,0 +1,42 @@
+$mat-background-color: #fafafa; // #fafafa for a light and #303030 for a dark theme
+$v-focus-color: #00BCD4; 
+// (You can find colors at materialpalette.com) $v-focus-color is supposed to be your accent color
+@import "../material/material.scss"; 
+
+@mixin mlgia {
+  @include material;
+  // Insert your own theme rules here
+  
+  
+  .v-horizontallayout-footer {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  .boxuser {
+  	word-wrap: break-word;
+	width: 280px;
+  }
+  .v-label-undef-w {
+  	white-space: normal;
+  }
+  .delete-height {
+  	height: unset;
+  }
+  .delete-padding {
+  	padding-top: 10px;
+  	padding-bottom: 10px;
+  	padding-left: 0px;
+  }
+  .v-horizontallayout.v-layout.v-horizontal.v-widget.delete-height {
+  	height: unset;
+  }
+  .v-verticallayout.v-layout.v-vertical.v-widget.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left.delete-padding{
+  	padding-top: 10px;
+  	padding-bottom: 10px;
+  	padding-left: 0px;
+  }
+
+}
