@@ -70,10 +70,10 @@
 			<version>${vaadin.version}</version>
 		</dependency>
 		
-		<dependency>
+		<!--<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-push</artifactId>
-		</dependency>
+		</dependency>-->
 		
 		<dependency>
 			<groupId>com.vaadin</groupId>
@@ -97,6 +97,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.addon.audio</groupId>
+			<artifactId>AudioPlayer</artifactId>
+			<version>1.1</version>
 		</dependency>
 
 	</dependencies>

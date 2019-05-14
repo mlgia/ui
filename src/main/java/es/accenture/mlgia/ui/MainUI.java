@@ -24,6 +24,22 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import java.io.ByteArrayInputStream;
+import java.nio.ByteBuffer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import org.vaadin.addon.audio.server.AudioPlayer;
+import org.vaadin.addon.audio.server.Encoder;
+import org.vaadin.addon.audio.server.Stream;
+import org.vaadin.addon.audio.server.util.ULawUtil;
+import org.vaadin.addon.audio.server.util.WaveUtil;
+import org.vaadin.addon.audio.server.encoders.WaveEncoder;
+import org.vaadin.addon.audio.shared.PCMFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
 import es.accenture.mlgia.dto.MessageDTO;
 import es.accenture.mlgia.ui.audio.AudioRecorder;
 import es.accenture.mlgia.ui.consumer.ConsumerAssistant;
@@ -39,10 +55,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MainUI extends UI {
 
 	private static final long serialVersionUID = 1L;
+	public static final String TEST_FILE_PATH = "src/main/resources/";
 
 	BeanValidationBinder<MessageDTO> binder;
 	TextField tfQuery;
 	Button btSendText;
+	Button btPlaySound;
 	Panel contentPanel;
 	VerticalLayout vlContentArea;
 	VerticalLayout rootLayout;
@@ -59,13 +77,18 @@ public class MainUI extends UI {
 	@Value("${audio.file.recorded.temp}")
 	private String audioFileRecordedTemp;
 	
+	private AudioPlayer player;
 
 	@Override
 	protected void init(VaadinRequest request) {
 		buildUI();
 		log.debug("Compoentes UI Ok");
 		initBinder();
-		initConversation();
+		//initConversation();
+
+		String itemName = "track1.wav";
+		ByteBuffer fileBytes = decodeToPcm(itemName, TEST_FILE_PATH);
+		Stream stream = createWaveStream(fileBytes, new WaveEncoder());
 	}
 
 	private void initBinder() {
@@ -141,9 +164,16 @@ public class MainUI extends UI {
 		btSendText.setWidth("50px");
 		btSendText.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
+		btPlaySound = new Button(VaadinIcons.MICROPHONE);
+		btPlaySound.addStyleName(MaterialTheme.BUTTON_FLAT + " " + MaterialTheme.BUTTON_FLOATING_ACTION);
+		btPlaySound.addClickListener(this::playSound);
+		btPlaySound.setHeight("50px");
+		btPlaySound.setWidth("50px");
+
 		HorizontalLayout hlBotom = new HorizontalLayout();
-		hlBotom.addComponents(btMicro, tfQuery, btSendText);
+		hlBotom.addComponents(btMicro, tfQuery, btSendText, btPlaySound);
 		hlBotom.setComponentAlignment(btSendText, Alignment.MIDDLE_RIGHT);
+		hlBotom.setComponentAlignment(btPlaySound, Alignment.MIDDLE_RIGHT);
 		hlBotom.setComponentAlignment(btMicro, Alignment.MIDDLE_LEFT);
 		hlBotom.setComponentAlignment(tfQuery, Alignment.MIDDLE_CENTER);
 		hlBotom.setExpandRatio(tfQuery, 1);
@@ -206,5 +236,60 @@ public class MainUI extends UI {
 			}
 			log.debug("Finish record");
 		}
+	}
+
+	private void playSound(ClickEvent event) {
+		if (player.isStopped()) {
+			player.play();
+		} else if (player.isPaused()) {
+			player.resume();
+		} else {
+			player.play();
+		}
+	}
+
+	/**
+	 * Returns a ByteBuffer filled with PCM data. If the original audio file is using
+	 * a different encoding, this method attempts to decode it into PCM signed data.
+	 * @param fname 	filename
+	 * @param dir		directory in which the file exists
+	 * @return ByteBuffer containing byte[] of PCM data
+	 */
+	private static ByteBuffer decodeToPcm(String fname, String dir) {
+		ByteBuffer buffer = null;
+		try {
+			// load audio file
+			Path path = Paths.get(TEST_FILE_PATH + "/" + fname);
+			byte[] bytes = Files.readAllBytes(path);
+			// create input stream with audio file bytes
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(bytes));
+			AudioFormat.Encoding encoding = audioInputStream.getFormat().getEncoding();
+			// handle current encoding
+			if (encoding.equals(AudioFormat.Encoding.ULAW)) {
+				buffer = ULawUtil.decodeULawToPcm(audioInputStream);
+			} else {
+				// for now assume it is PCM data and load it straight into byte buffer
+				buffer = ByteBuffer.wrap(bytes);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return buffer;
+	}
+
+	private static Stream createWaveStream(ByteBuffer waveFile, Encoder outputEncoder) {
+		int startOffset = WaveUtil.getDataStartOffset(waveFile);
+		int dataLength = WaveUtil.getDataLength(waveFile);
+		int chunkLength = 5000;
+		PCMFormat dataFormat = WaveUtil.getDataFormat(waveFile);
+		System.out.println(dataFormat.toString());
+		System.out.println("arrayLength: " + waveFile.array().length
+				+ "\n\rstartOffset: " + startOffset
+				+ "\n\rdataLength: " + dataLength
+				+ "\r\nsampleRate: " + dataFormat.getSampleRate());
+		ByteBuffer dataBuffer = ByteBuffer.wrap(waveFile.array(),startOffset,dataLength);
+		Stream stream = new Stream(dataBuffer,dataFormat,outputEncoder, chunkLength);
+		return stream;
 	}
 }
