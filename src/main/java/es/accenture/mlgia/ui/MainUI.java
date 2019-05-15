@@ -39,6 +39,9 @@ import org.vaadin.addon.audio.shared.PCMFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import org.vaadin.addon.audio.server.state.StateChangeCallback;
+import org.vaadin.addon.audio.server.state.StreamState;
+import org.vaadin.addon.audio.server.state.PlaybackState;
 
 import es.accenture.mlgia.dto.MessageDTO;
 import es.accenture.mlgia.ui.audio.AudioRecorder;
@@ -61,6 +64,7 @@ public class MainUI extends UI {
 	TextField tfQuery;
 	Button btSendText;
 	Button btPlaySound;
+	Label lbinfo;
 	Panel contentPanel;
 	VerticalLayout vlContentArea;
 	VerticalLayout rootLayout;
@@ -82,13 +86,57 @@ public class MainUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		buildUI();
-		log.debug("Compoentes UI Ok");
+		//log.debug("Compoentes UI Ok");
 		initBinder();
 		//initConversation();
 
 		String itemName = "track1.wav";
 		ByteBuffer fileBytes = decodeToPcm(itemName, TEST_FILE_PATH);
 		Stream stream = createWaveStream(fileBytes, new WaveEncoder());
+
+		player = new AudioPlayer(stream);
+		final double volume = 80d / 100d;
+		player.setVolume(volume);
+
+		final UI ui = UI.getCurrent();
+		player.addStateChangeListener(new StateChangeCallback() {
+			@Override
+			public void playbackStateChanged(final PlaybackState new_state) {
+				ui.access(new Runnable() {
+					@Override
+					public void run() {
+						String text = "Player status: ";
+						switch(new_state) {
+						case PAUSED:
+							text += "PAUSED";
+							break;
+						case PLAYING:
+							text += "PLAYING";
+							break;
+						case STOPPED:
+							text += "STOPPED";
+							break;
+						default:
+							break;
+						}
+						tfQuery.setValue(text);
+						lbinfo.setCaption(text);
+					}
+				});
+			}
+
+			@Override
+			public void playbackPositionChanged(final int new_position_millis) {
+				ui.access(new Runnable() {
+					@Override
+					public void run() {
+						// TODO: for proper slider setting, we need to know the position
+						// in millis and total duration of audio
+					
+					}
+				});
+			}
+		});
 	}
 
 	private void initBinder() {
@@ -239,6 +287,7 @@ public class MainUI extends UI {
 	}
 
 	private void playSound(ClickEvent event) {
+		if (player == null) return;
 		if (player.isStopped()) {
 			player.play();
 		} else if (player.isPaused()) {
@@ -259,7 +308,8 @@ public class MainUI extends UI {
 		ByteBuffer buffer = null;
 		try {
 			// load audio file
-			Path path = Paths.get(TEST_FILE_PATH + "/" + fname);
+			Path path = Paths.get(dir + fname);
+			System.out.println(path.toAbsolutePath());
 			byte[] bytes = Files.readAllBytes(path);
 			// create input stream with audio file bytes
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(bytes));
