@@ -179,7 +179,7 @@ public class MainUI extends UI {
 	}
 
 	private void addHeader() {
-		Label lbinfo = new Label("MLGIA Car Park");
+		lbinfo = new Label("MLGIA Car Park");
 		lbinfo.addStyleName(MaterialTheme.LABEL_BOLD);
 		lbinfo.setHeight("20px");
 		rootLayout.addComponent(lbinfo);
@@ -292,8 +292,8 @@ public class MainUI extends UI {
 			player.play();
 		} else if (player.isPaused()) {
 			player.resume();
-		} else {
-			player.play();
+		} else if (player.isPlaying()){
+			player.stop();
 		}
 	}
 

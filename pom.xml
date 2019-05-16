@@ -52,11 +52,11 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.vaadin.touchkit</groupId>
 			<artifactId>touchkit</artifactId>
 			<version>${touchkit.version}</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>com.github.appreciated</groupId>
@@ -136,7 +136,9 @@
 					<execution>
 						<goals>
 							<goal>update-theme</goal>
+							<goal>compile</goal>
 							<goal>compile-theme</goal>
+							<goal>update-widgetset</goal>
 						</goals>
 					</execution>
 				</executions>
