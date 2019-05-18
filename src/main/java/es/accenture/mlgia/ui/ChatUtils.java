@@ -21,9 +21,7 @@ public class ChatUtils {
 			vlContentArea.addComponent(panelPredict);
 			vlContentArea.setComponentAlignment(panelPredict, Alignment.TOP_LEFT);
 		}
-
 	}
-
 
 	public static void getMessageUser(VerticalLayout vlContentArea, String message) {
 		Panel panel = new ChatPanelUser(message);

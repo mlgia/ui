@@ -20,12 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 //@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ConsumerAssistant {
 	
-	
 	@Value("${url.assistant}")
 	private String urlAssistant;
 	
 	private static final String MESSAGE_FAIL = "I'm sorry, I have a problem with my connection.";
-	
 	
 	public MessageDTO initAssistant() {
 		return invokeImpl(MessageDTO.builder().messageIn("").conversationId("").build());
@@ -33,7 +31,6 @@ public class ConsumerAssistant {
 
 	public MessageDTO invokeAssistant(MessageDTO in) {
 		return invokeImpl(in);
-		
 	}
 
 	private MessageDTO invokeImpl(MessageDTO in) {
@@ -48,8 +45,7 @@ public class ConsumerAssistant {
 		HttpEntity<Object> request = new HttpEntity<>(in, headers);
 
 		try{
-			//throw new Exception("");
-			out = restTemplate.postForObject(urlAssistant, request, MessageDTO.class);	
+			//out = restTemplate.postForObject(urlAssistant, request, MessageDTO.class);	
 		}
 		catch(Exception e) {
 			out = MessageDTO.builder().messageOut(MESSAGE_FAIL).conversationId("").build();
@@ -58,6 +54,5 @@ public class ConsumerAssistant {
 		log.info("< Watson Response: " + out.toString());
 		
 		return out;
-		
 	}
 }

@@ -10,7 +10,7 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-public class AudioPlayer {
+public class AudioPlayerOld {
 
     private final int BUFFER_SIZE = 128000;
     private File soundFile;
