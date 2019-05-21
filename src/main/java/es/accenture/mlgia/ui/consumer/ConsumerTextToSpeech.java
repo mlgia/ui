@@ -1,8 +1,8 @@
 package es.accenture.mlgia.ui.consumer;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Collections;
 
 import org.apache.commons.io.FileUtils;
@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import es.accenture.mlgia.dto.InputTextToSpeechDTO;
 import es.accenture.mlgia.dto.TextToSpeechDTO;
-import es.accenture.mlgia.ui.audio.AudioPlayer;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,7 +38,6 @@ public class ConsumerTextToSpeech {
 		TextToSpeechDTO out = null;
 		RestTemplate restTemplate = new RestTemplate();
 
-		// Parámetros de entrada
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		try {
@@ -45,23 +45,26 @@ public class ConsumerTextToSpeech {
 			out = restTemplate.postForObject(urlTextToSpeech, request, TextToSpeechDTO.class);
 
 			try {
-				FileUtils.writeByteArrayToFile(new File(audioFileTmp), Base64.getDecoder().decode(out.getMessage()));
+				FileUtils.writeByteArrayToFile(new File(audioFileTmp), out.getMessage());
 			} catch (IOException e) {
 				log.error(e.getMessage());
 			}
-
-			AudioPlayer audioPlayer = new AudioPlayer();
-			audioPlayer.playSound(audioFileTmp);
+		
+	        try(FileInputStream fis=new FileInputStream(audioFileTmp)){
+	            Player player = new Player(fis);
+	            player.play();
+	        }catch (JavaLayerException e1) {
+	            log.error("no es audio");
+	        }catch (IOException ex) {
+	            log.error(ex.getLocalizedMessage());
+	        }
 
 		} catch (Exception e) {
-			// out =
-			// TextToSpeechDTO.builder().messageOut(MESSAGE_FAIL).conversationId("").build();
 			log.error("Error: " + e.getMessage(), e);
 		}
 
 		log.info("< Watson TextToSpeech: " + out.toString());
 
 		return out;
-
 	}
 }

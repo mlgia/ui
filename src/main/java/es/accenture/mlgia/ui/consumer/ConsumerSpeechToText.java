@@ -36,7 +36,7 @@ public class ConsumerSpeechToText {
 		} catch (IOException e) {
 			log.error("Se ha producido un erro al obtener los bytes" + e.getMessage());
 		}
-		// Parámetros de entrada
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		HttpEntity<Object> request = new HttpEntity<>(InputSpeechToTextDTO.builder().text(fileByteEncoded).build(),

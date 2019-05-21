@@ -7,11 +7,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 
 public class ChatPanelUser extends Panel {
-	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public ChatPanelUser(String message) {
@@ -25,9 +21,7 @@ public class ChatPanelUser extends Panel {
 		hlMessage.setComponentAlignment(lbMessage,Alignment.MIDDLE_LEFT);
 //		addStyleName("background: #00BCD4;");
 		
-		setContent(hlMessage);
-		
-		
+		setContent(hlMessage);		
 	}
 
 }

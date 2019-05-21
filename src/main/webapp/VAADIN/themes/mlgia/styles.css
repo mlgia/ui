@@ -1894,7 +1894,6 @@ body:not(.v-touch) .card-hoverable:hover, body.v-touch .card-hoverable:active {
 }
 
 .v-app {
-	background: url("img/background.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -16746,7 +16745,7 @@ body:not(.v-touch) .card-hoverable:hover, body.v-touch .card-hoverable:active {
 
 .mlgia .boxuser {
 	word-wrap: break-word;
-	width: 280px;
+	width: 268px;
 }
 
 .mlgia .v-label-undef-w {
@@ -16771,4 +16770,63 @@ body:not(.v-touch) .card-hoverable:hover, body.v-touch .card-hoverable:active {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.mlgia .v-horizontallayout.v-layout.v-horizontal.v-widget.delete-height.v-horizontallayout-delete-height {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+}
+
+.mlgia .v-panel.v-widget.card-0-5.v-panel-card-0-5.v-has-width {
+	background-color: lightblue;
+}
+
+.mlgia .v-slot.v-slot-card-0-5 {
+	display: inline-block;
+	float: right;
+}
+
+.mlgia .v-slot.v-align-center.v-align-middle {
+	height: 85%;
+}
+
+.mlgia .v-ui > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left {
+	height: 100%;
+}
+
+.mlgia .v-ui.v-scrollable {
+	height: 100%;
+}
+
+.mlgia .v-verticallayout > .v-slot.v-align-center.v-align-middle {
+	height: 100%;
+	background-image: url("img/new_telephone.png");
+	background-repeat: no-repeat;
+	background-position: -30px -8px;
+	background-size: 448px 608px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 370px;
+}
+
+.mlgia .v-ui > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left > .v-slot > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left {
+	width: 378px !important;
+	height: 513px;
+	margin-top: 54px;
+	margin-bottom: 0px;
+	vertical-align: top;
+	padding-left: 25px;
+	padding-right: 16px;
+	padding-top: 4px;
+	overflow: scroll;
+}
+
+.mlgia .v-caption-on-top > .v-caption, .mlgia .v-caption-on-bottom > .v-caption {
+	display: none;
+}
+
+.mlgia .v-slot.v-slot-card-0-5 > .v-panel.v-widget.card-0-5.v-panel-card-0-5 {
+	width: 260px;
 }

@@ -3,12 +3,11 @@
 
 
 .v-app {
-      background: url("img/background.jpg");
+      /*background: url("img/background.jpg");*/
       background-size:     cover;                  
       background-repeat:   no-repeat;
       background-position: center center;   
- 	}
-
+}
 
 .mlgia {
   @include addons;

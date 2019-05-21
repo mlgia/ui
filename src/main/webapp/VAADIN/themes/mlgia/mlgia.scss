@@ -17,7 +17,7 @@ $v-focus-color: #00BCD4;
   }
   .boxuser {
   	word-wrap: break-word;
-	width: 280px;
+	width: 268px;
   }
   .v-label-undef-w {
   	white-space: normal;
@@ -37,6 +37,65 @@ $v-focus-color: #00BCD4;
   	padding-top: 10px;
   	padding-bottom: 10px;
   	padding-left: 0px;
+  	padding-right: 0px;	
   }
-
+  .v-horizontallayout.v-layout.v-horizontal.v-widget.delete-height.v-horizontallayout-delete-height {
+  	padding-top: 10px;
+  	padding-bottom: 10px;
+  	padding-left: 0px;
+  }
+  .v-panel.v-widget.card-0-5.v-panel-card-0-5.v-has-width {
+  	background-color: lightblue;
+  }
+  .v-slot.v-slot-card-0-5 {
+  	display: inline-block;	
+  	float: right;
+  }
+  
+  .v-slot.v-align-center.v-align-middle {
+      height: 85%;
+  }
+  
+  .v-ui > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left {
+  	height: 100%;
+  }
+  .v-ui.v-scrollable {
+  	height: 100%;
+  }
+  
+  .v-verticallayout > .v-slot.v-align-center.v-align-middle {
+  	height: 100%;
+	background-image: url("img/new_telephone.png");
+	background-repeat: no-repeat;
+	background-position: -30px -8px;
+	background-size: 448px 608px;
+	margin-left:auto;
+	margin-right:auto;
+	width: 370px;
+  }
+  
+ .v-ui > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left 
+  > .v-slot > .v-verticallayout.v-layout.v-vertical.v-widget.v-has-width.v-margin-top.v-margin-right.v-margin-bottom.v-margin-left {
+  	width: 378px !important;
+  	height: 513px;
+  	margin-top: 54px;
+  	margin-bottom: 0px;
+  	vertical-align: top;
+  	padding-left: 25px;
+  	padding-right: 16px;
+  	padding-top: 4px;
+  	overflow: scroll;
+  }
+  
+  .v-slot > .v-horizontallayout.v-layout.v-horizontal.v-widget {
+  	/* width: 274px; */
+  }
+  
+  .v-caption-on-top > .v-caption, .v-caption-on-bottom > .v-caption {
+    display: none;
+  }
+  
+  .v-slot.v-slot-card-0-5 > .v-panel.v-widget.card-0-5.v-panel-card-0-5 {
+  width: 260px;
+  }
 }
