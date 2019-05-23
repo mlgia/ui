@@ -152,7 +152,7 @@
 				<version>1.0.0</version>
 				<configuration>
 					<imageName>${docker-hub-organization}/${project.artifactId}</imageName>
-					<dockerDirectory>/</dockerDirectory>
+					<dockerDirectory>src/main/docker</dockerDirectory>
 					<imageTags>
 						<imageTag>${project.version}</imageTag>
 						<imageTag>latest</imageTag>
