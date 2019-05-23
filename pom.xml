@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -39,25 +40,22 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- <dependency>
-			<groupId>org.vaadin.touchkit</groupId>
-			<artifactId>touchkit</artifactId>
-			<version>${touchkit.version}</version>
-		</dependency> -->
-		
+
+		<!-- <dependency> <groupId>org.vaadin.touchkit</groupId> <artifactId>touchkit</artifactId> 
+			<version>${touchkit.version}</version> </dependency> -->
+
 		<dependency>
 			<groupId>com.github.appreciated</groupId>
 			<artifactId>material</artifactId>
@@ -69,17 +67,15 @@
 			<artifactId>vaadin-push</artifactId>
 			<version>${vaadin.version}</version>
 		</dependency>
-		
-		<!--<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-push</artifactId>
-		</dependency>-->
-		
+
+		<!--<dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-push</artifactId> 
+			</dependency> -->
+
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiled</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.jarektoro</groupId>
 			<artifactId>responsive-layout</artifactId>
@@ -98,12 +94,19 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>de.huxhorn.sulky</groupId>
+			<artifactId>de.huxhorn.sulky.3rdparty.jlayer</artifactId>
+			<version>1.0</version>
+		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.vaadin.addon.audio</groupId> -->
-<!-- 			<artifactId>AudioPlayer</artifactId> -->
-<!-- 			<version>1.1</version> -->
-<!-- 		</dependency> -->
+
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.vaadin.addon.audio</groupId> -->
+		<!-- <artifactId>AudioPlayer</artifactId> -->
+		<!-- <version>1.1</version> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -144,26 +147,26 @@
 				</executions>
 			</plugin>
 			<plugin>
-		        <groupId>com.spotify</groupId>
-		        <artifactId>docker-maven-plugin</artifactId>
-		        <version>1.0.0</version>
-		        <configuration>
-		            <imageName>${docker-hub-organization}/${project.artifactId}</imageName>
-		            <dockerDirectory>src/main/docker</dockerDirectory>
-		            <imageTags>
-		                <imageTag>${project.version}</imageTag>
-		                <imageTag>latest</imageTag>
-		            </imageTags>
-		            <serverId>docker-hub</serverId>
-		            <resources>
-		                <resource>
-		                    <targetPath>/</targetPath>
-		                    <directory>${project.build.directory}</directory>
-		                    <include>${project.build.finalName}.jar</include>
-		                </resource>
-		            </resources>
-		        </configuration>
-		    </plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>${docker-hub-organization}/${project.artifactId}</imageName>
+					<dockerDirectory>/</dockerDirectory>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+					</imageTags>
+					<serverId>docker-hub</serverId>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
