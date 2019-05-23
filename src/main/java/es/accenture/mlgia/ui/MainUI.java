@@ -78,7 +78,7 @@ public class MainUI extends UI {
 		MessageDTO messageDTO = consumerAssistant.initAssistant();
 		ChatUtils.getMessageWatson(vlContentArea, messageDTO);
 		binder.getBean().setConversationId(messageDTO.getConversationId());
-		playSound(messageDTO.getMessageOut());
+		//playSound(messageDTO.getMessageOut());
 	}
 
 	private void clickSendText(ClickEvent event) {
@@ -87,7 +87,7 @@ public class MainUI extends UI {
 			
 			MessageDTO messageOut = consumerAssistant.invokeAssistant(binder.getBean());
 			ChatUtils.getMessageWatson(vlContentArea, messageOut);
-			playSound(messageOut.getMessageOut());
+			//playSound(messageOut.getMessageOut());
 			binder.getBean().setConversationId(messageOut.getConversationId());
 			
 			tfQuery.setValue("");

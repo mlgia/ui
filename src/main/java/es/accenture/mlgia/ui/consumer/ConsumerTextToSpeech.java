@@ -43,7 +43,7 @@ public class ConsumerTextToSpeech {
 		try {
 			HttpEntity<Object> request = new HttpEntity<>(InputTextToSpeechDTO.builder().text(in).build(), headers);
 			out = restTemplate.postForObject(urlTextToSpeech, request, TextToSpeechDTO.class);
-
+			log.info("< Watson TextToSpeech: " + out.toString());
 			try {
 				FileUtils.writeByteArrayToFile(new File(audioFileTmp), out.getMessage());
 			} catch (IOException e) {
@@ -63,7 +63,7 @@ public class ConsumerTextToSpeech {
 			log.error("Error: " + e.getMessage(), e);
 		}
 
-		log.info("< Watson TextToSpeech: " + out.toString());
+		
 
 		return out;
 	}
