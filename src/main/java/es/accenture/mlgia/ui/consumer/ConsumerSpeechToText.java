@@ -28,6 +28,7 @@ public class ConsumerSpeechToText {
 		log.info("> SpeechToText Request: ");
 
 		RestTemplate restTemplate = new RestTemplate();
+		String salida = "";
 
 		byte[] fileByteEncoded = null;
 		try {
@@ -44,9 +45,12 @@ public class ConsumerSpeechToText {
 
 		ResponseEntity<String> result = restTemplate.postForEntity(urlSpeechToText, request, String.class);
 
-		log.info("< Watson SpeechToText: " + result.getBody());
+		if (result != null && result.getBody() != null) {
+			salida = result.getBody().trim();
+		}
+		log.info("< Watson SpeechToText: " + salida);
 
-		return result.getBody().trim();
+		return salida;
 
 	}
 }

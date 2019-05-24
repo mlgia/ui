@@ -120,7 +120,6 @@ public class MainUI extends UI {
 		vlContentArea = new VerticalLayout();
 		vlContentArea.setSizeFull();
 		vlContentArea.setId("mlgia-content-area");
-		// rootLayout.addComponentsAndExpand(vlContentArea);
 		rootLayout.addComponent(vlContentArea);
 	}
 
@@ -152,10 +151,6 @@ public class MainUI extends UI {
 		hlBotom.setWidth("100%");
 		hlBotom.setHeight("60px");
 		hlBotom.addStyleName("footer");
-		// hlBotom.addStyleName("myfooter");
-
-		// hlBotom.addStyleName("position: fixed; bottom: 0; left: 0; right: 0; z-index:
-		// 10;");
 
 		rootLayout.addComponent(hlBotom);
 		rootLayout.setComponentAlignment(hlBotom, Alignment.BOTTOM_CENTER);
@@ -174,9 +169,7 @@ public class MainUI extends UI {
 			}
 		});
 
-		// new InitializerThread(recorder).start();
 		stopper.start();
-		// start recording
 		recorder.start();
 
 		log.debug("Se captura el fichero generado");
@@ -185,7 +178,6 @@ public class MainUI extends UI {
 		String salida = consumerSpeechToText.invoke(fileIn);
 		fileIn.delete();
 		log.debug("Salida:" + salida);
-		// binder.getBean().setMessageIn(salida);
 		tfQuery.setValue(salida);
 		clickSendText(null);
 	}
